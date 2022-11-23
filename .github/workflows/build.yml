@@ -23,8 +23,9 @@ jobs:
           distribution: adopt
           java-version: 11
 
+
   Deploy:
-    if: startsWith(github.head_ref, 'origin/feature/')
+    if: startsWith(github.ref, 'origin/feature/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
