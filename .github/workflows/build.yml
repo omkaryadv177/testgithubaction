@@ -1,0 +1,42 @@
+name: dsync services
+
+on:
+  push:
+    branches:
+      - master
+      - 'fix/**'
+      - 'feature/**'
+
+jobs:
+  PostgreSQL-Tests:
+    if: >
+      !contains(github.event.head_commit.message, '[skip tests]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: 11
+
+  Deploy:
+    if: >
+      github.event_name != 'pull_request' && ( startsWith(github.head_ref, 'feature/') || github.ref_name == 'master' )
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: 11
+
+      - name: Run script
+        run: echo "hEllo world"
