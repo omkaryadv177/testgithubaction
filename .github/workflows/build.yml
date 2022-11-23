@@ -28,7 +28,7 @@ jobs:
         run: echo ${GITHUB_REF_NAME}
 
   Deploy:
-    if: startsWith(github.ref_name, 'feature/')
+    if: startsWith(github.ref_name, 'feature')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
