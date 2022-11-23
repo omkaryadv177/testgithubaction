@@ -6,6 +6,8 @@ on:
       - master
       - 'fix/**'
       - 'feature/**'
+env:
+
 
 jobs:
   PostgreSQL-Tests:
@@ -26,7 +28,7 @@ jobs:
         run: echo ${GITHUB_REF_NAME}
 
   Deploy:
-    if: startsWith(${GITHUB_REF_NAME}, 'feature/')
+    if: startsWith(github.ref_name, 'feature/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
