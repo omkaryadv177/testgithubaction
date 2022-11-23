@@ -24,8 +24,7 @@ jobs:
           java-version: 11
 
   Deploy:
-    if: >
-       startsWith(github.head_ref, 'feature/')
+    if: startsWith(github.head_ref, 'origin/feature/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
