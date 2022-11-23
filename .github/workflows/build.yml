@@ -23,8 +23,8 @@ jobs:
           distribution: adopt
           java-version: 11
       - name: print the staement
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-             echo  $BRANCH_NAME
+        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}
+             echo  "$BRANCH_NAME"
 
   Deploy:
     if: startsWith(github.head_ref, 'feature/')
