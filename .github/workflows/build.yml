@@ -23,7 +23,7 @@ jobs:
           distribution: adopt
           java-version: 11
       - name: print the staement
-        run: echo ${{github.ref}}
+        run: echo ${{github.head.ref}}
 
   Deploy:
     if: startsWith(github.head_ref, 'feature/')
