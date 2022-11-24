@@ -1,12 +1,12 @@
 name: dsync services
 
-on:
-  push:
+
+push:
     branches:
       - master
       - 'fix/**'
       - 'feature/**'
-  workflow_dispatch:
+workflow_dispatch:
 
 jobs:
   PostgreSQL-Tests:
