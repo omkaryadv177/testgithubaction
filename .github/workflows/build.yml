@@ -5,6 +5,11 @@ name: Manual workflow
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
+  push:
+    branches:
+      - master
+      - 'fix/**'
+      - 'feature/**'
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
@@ -27,4 +32,4 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Send greeting
-        run: echo "Hello ${{ github.event.inputs.name }}"
+        run: echo "Hello"
