@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       commitMessage:
-        description:
+        description: hello
         required: false
 jobs:
   PostgreSQL-Tests:
