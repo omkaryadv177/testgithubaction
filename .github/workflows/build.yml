@@ -7,8 +7,19 @@ on:
     - cron: "*/1 * * * *"
  
 jobs:
-  cron:
+  pipeline:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check last commit date
+        id: commit_date
+        run: echo "::set-output name=date::$(git log --format=%cd --date=format:%Y-%m-%d --max-count=1)"
+
+      - name: Run pipeline if there was a commit this week
+        if: ${{ steps.commit_date.outputs.date && steps.commit_date.outputs.date != format('{0:yyyy-MM-dd}', github.event.scheduled_time) && github.ref == 'refs/heads/main' }}
+        run: |
+          # Run your pipeline commands here
+          echo "Running the pipeline..."
