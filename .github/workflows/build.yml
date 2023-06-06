@@ -9,17 +9,14 @@ on:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Check last commit date
-        id: commit_date
-        run: echo "::set-output name=date::$(git log --format=%cd --date=format:%Y-%m-%d --max-count=1)"
-
-      - name: Run pipeline if there was a commit this week
-        if: ${{ steps.commit_date.outputs.date && steps.commit_date.outputs.date != format('{0:yyyy-MM-dd}', github.event.scheduled_time) && github.ref == 'refs/heads/main' }}
+      - uses: actions/checkout@v2
+      - name: Run pipeline
         run: |
-          # Run your pipeline commands here
-          echo "Running the pipeline..."
+          if [[ $(git rev-list --count HEAD..HEAD@{1w}) -gt 0 ]]; then
+            echo "There has been a commit this week, running pipeline..."
+            pipenv install
+            pipenv run test
+          else
+            echo "No commits this week, skipping pipeline..."
+          fi
