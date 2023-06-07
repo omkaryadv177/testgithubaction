@@ -1,10 +1,6 @@
 name:
   First Cron Job
 
-on:
-  push:
-  schedule:
-    - cron: "*/1 * * * *"
  
 jobs:
   pipeline:
