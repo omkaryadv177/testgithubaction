@@ -6,7 +6,7 @@ on:
  
 jobs:
   pipeline:
-    runs-on: macos-10.15.2
+    runs-on: macos-10.14
     steps:
       - uses: actions/checkout@v2
       - name: Run pipeline
