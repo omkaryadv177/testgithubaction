@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: true
       matrix:
         java_version: [17, 11]
 
@@ -26,5 +27,6 @@ jobs:
       # Add your build and test steps here
       # For example:
       - name: Build and Test with Java ${{ matrix.java_version }}
+        if: ${{ github.event_name == 'pull_request' || matrix.java_version == 17 }}
         run: |
           mvn clean install
