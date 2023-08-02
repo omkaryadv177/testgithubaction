@@ -3,7 +3,7 @@ name: Parallel Matrix Jobs
 on:
   push:
     branches:
-      - main
+      - '**'
 
 jobs:
   build_and_test:
