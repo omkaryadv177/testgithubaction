@@ -1,20 +1,30 @@
-name:
-  First Cron Job
-  
+name: Parallel Matrix Jobs
+
 on:
   push:
- 
+    branches:
+      - main
+
 jobs:
-  pipeline:
-    runs-on: macos-10.14
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java_version: [17, 11]
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Run pipeline
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK ${{ matrix.java_version }}
+        if: ${{ github.event_name == 'pull_request' || matrix.java_version == 17 }}
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java_version }}
+
+      # Add your build and test steps here
+      # For example:
+      - name: Build and Test with Java ${{ matrix.java_version }}
         run: |
-          if [[ $(git rev-list --count HEAD..HEAD@{1w}) -gt 0 ]]; then
-            echo "There has been a commit this week, running pipeline..."
-            pipenv install
-            pipenv run test
-          else
-            echo "No commits this week, skipping pipeline..."
-          fi
+          mvn clean install
