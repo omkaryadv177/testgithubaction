@@ -10,6 +10,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Run PMD
+        uses: github/pmd-action@v1
+        with:
+          rulesets: java-basic,java-braces
+          fail-on-violations: true
       - name: Build
         run: |
           echo "Build successfully"
